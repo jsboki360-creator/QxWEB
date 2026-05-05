@@ -373,14 +373,7 @@ map.on('load', () => {
     if(bounds) map.fitBounds(bounds,{padding:40,maxZoom:19});
 });
 
-// 베이스맵
-let isSatellite=true;
-document.getElementById('btnBase').onclick=function(){
-    isSatellite=!isSatellite;
-    map.setLayoutProperty('vworld_sat','visibility',isSatellite?'visible':'none');
-    map.setLayoutProperty('vworld_base','visibility',isSatellite?'none':'visible');
-    this.innerText = isSatellite ? '🛰️ 위성' : '🗺️ 일반';
-};
+
 
 // GPS
 let myLocOn=false;
