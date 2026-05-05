@@ -181,28 +181,45 @@ const baseMaps = [
 
 let baseIndex = 0;
 
+
+
+
+
 function showBaseMap(idx){
 
     for(let bm of baseMaps){
 
-        map.setLayoutProperty(
-            bm.id,
-            'visibility',
-            'none'
-        );
+        // 🔥 레이어 존재 확인
+        if(map.getLayer(bm.id)){
+
+            map.setLayoutProperty(
+                bm.id,
+                'visibility',
+                'none'
+            );
+        }
     }
 
-    map.setLayoutProperty(
-        baseMaps[idx].id,
-        'visibility',
-        'visible'
-    );
+    // 🔥 선택 레이어만 ON
+    if(map.getLayer(baseMaps[idx].id)){
+
+        map.setLayoutProperty(
+            baseMaps[idx].id,
+            'visibility',
+            'visible'
+        );
+    }
 
     document.getElementById('btnBase').innerText =
         baseMaps[idx].text;
 }
 
+
+// 🔥 버튼 클릭
 document.getElementById('btnBase').onclick=function(){
+
+    // 🔥 스타일 로딩 전이면 무시
+    if(!map.isStyleLoaded()) return;
 
     baseIndex++;
 
@@ -211,8 +228,6 @@ document.getElementById('btnBase').onclick=function(){
 
     showBaseMap(baseIndex);
 };
-
-
 map.dragRotate.disable();
 map.touchZoomRotate.disableRotation();
 
@@ -241,7 +256,7 @@ function escapeHtml(s){
 }
 
 map.on('load', () => {
-
+    showBaseMap(0);
     let bounds = null;
 
     // -------------------------
