@@ -648,15 +648,20 @@ document.getElementById('cameraInput').onchange = function(e){
         time:new Date().toLocaleString()
     }
 });
-data.features.forEach((f,i)=>{f.id=i;});
+data.features.forEach((f,i)=>{
+    f.id=i;
+});
 
-        saveMemoData(data);
-        map.getSource('memo').setData(data);
+saveMemoData(data);
+if(map.getSource('memo')){
+    map.getSource('memo').setData(data);
+}
 
-    };
+};
 
-    reader.readAsDataURL(file);
-    this.value = '';
+reader.readAsDataURL(file);
+this.value = '';
+
 };
 
 function editMemo(id){
